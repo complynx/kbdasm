@@ -1,0 +1,127 @@
+// this is file for /usr/share/X11/xkb/symbols
+// remember to put this into ../rules/evdev.xml:
+//    <layout>
+//      <configItem>
+//        <name>usru</name>
+//        <shortDescription>us-ru</shortDescription>
+//        <description>US-Russian combined</description>
+//        <languageList>
+//          <iso639Id>rus</iso639Id>
+//        </languageList>
+//      </configItem>
+//      <variantList>
+//        <variant>
+//          <configItem>
+//            <name>usru</name>
+//            <description>US-Russian combined</description>
+//          </configItem>
+//        </variant>
+//      </variantList>
+//    </layout>
+
+// This adds the definitions needed to create a level5-lock behaviour, using
+// the real modifier NumLock as a lock indicator.
+// See also: types/level5 : EIGHT_LEVEL_LEVEL_FIVE_LOCK
+// See also: compat/level5(level5_lock)
+partial modifier_keys
+xkb_symbols "lock" {
+  indicator "Caps Lock" {
+	!allowExplicit;
+	whichModState= Locked;
+	modifiers= LevelFive;
+  };
+};
+// The CapsLock key (while pressed) chooses the fifth shift level.
+partial modifier_keys
+xkb_symbols "caps_level5_lock" {
+  include "usru(lock)"
+  key <CAPS> {
+    type[Group1] = "ONE_LEVEL",
+    vmods = LevelFive,
+    symbols[Group1] = [ NoSymbol ],
+    actions[Group1] = [ LockMods(modifiers=LevelFive) ]
+  };
+};
+
+// eng: US-Russian combined kbd
+// 
+default partial alphanumeric_keys
+xkb_symbols "usru" {
+
+	name[Group1]= "US-Russian";
+
+	key.type[Group1]="EIGHT_LEVEL";
+//                  base,   shift,          alt-gr,         shift+alt-gr,   locked,             locked+shift,       locked+alt-gr,  locked+shift+alt-gr
+    key <TLDE> { [  grave,  asciitilde,     U0300,          U0303,          Cyrillic_io,        Cyrillic_IO,        U0300,          U0303 ] };
+    key <AE01> { [  1,      exclam,         U00A1,          U00B9,          1,                  exclam,             U00A1,          U00B9 ] };
+    key <AE02> { [  2,      at,             U20BC,          U00B2,          2,                  quotedbl,           at,             U00B2 ] };
+    key <AE03> { [  3,      numbersign,     numbersign,     U00B3,          3,                  numerosign,         numbersign,     U00B3 ] };
+    key <AE04> { [  4,      dollar,         dollar,         U00A3,          4,                  semicolon,          dollar,         U00A3 ] };
+    key <AE05> { [  5,      percent,        degree,         U2030,          5,                  percent,            degree,         U2030 ] };
+    key <AE06> { [  6,      asciicircum,    U20AC,          U2191,          6,                  colon,              asciicircum,    U2191 ] };
+    key <AE07> { [  7,      ampersand,      ampersand,      UFF06,          7,                  question,           ampersand,      UFF06 ] };
+    key <AE08> { [  8,      asterisk,       U221E,          U00D7,          8,                  asterisk,           U221E,          U00D7 ] };
+    key <AE09> { [  9,      parenleft,      U00AB,          U201C,          9,                  parenleft,          U00AB,          U201C ] };
+    key <AE10> { [  0,      parenright,     U00BB,          U201D,          0,                  parenright,         U00BB,          U201D ] };
+    key <AE11> { [  minus,  underscore,     emdash,         endash,         minus,              underscore,         emdash,         endash ] };
+    key <AE12> { [  equal,  plus,           notequal,       U00B1,          equal,              plus,               notequal,       U00B1 ] };
+//                  base,           shift,      alt-gr,         shift+alt-gr,   locked,             locked+shift,       locked+alt-gr,  locked+shift+alt-gr
+    key <AD01> { [  q,              Q,          q,              Q,              Cyrillic_shorti,    Cyrillic_SHORTI,    q,              Q ] };
+    key <AD02> { [  w,              W,          w,              W,              Cyrillic_tse,       Cyrillic_TSE,       w,              W ] };
+    key <AD03> { [  e,              E,          e,              E,              Cyrillic_u,         Cyrillic_U,         e,              E ] };
+    key <AD04> { [  r,              R,          U00AE,          R,              Cyrillic_ka,        Cyrillic_KA,        U00AE,          R ] };
+    key <AD05> { [  t,              T,          U2122,          T,              Cyrillic_ie,        Cyrillic_IE,        U2122,          T ] };
+    key <AD06> { [  y,              Y,          y,              Y,              Cyrillic_en,        Cyrillic_EN,        y,              Y ] };
+    key <AD07> { [  u,              U,          u,              U,              Cyrillic_ghe,       Cyrillic_GHE,       u,              U ] };
+    key <AD08> { [  i,              I,          i,              I,              Cyrillic_sha,       Cyrillic_SHA,       i,              I ] };
+    key <AD09> { [  o,              O,          U030A,          U20DD,          Cyrillic_shcha,     Cyrillic_SHCHA,     U030A,          U20DD ] };
+    key <AD10> { [  p,              P,          p,              P,              Cyrillic_ze,        Cyrillic_ZE,        p,              P ] };
+    key <AD11> { [  bracketleft,    braceleft,  bracketleft,    braceleft,      Cyrillic_ha,        Cyrillic_HA,        bracketleft,    braceleft ] };
+    key <AD12> { [  bracketright,   braceright, bracketright,   braceright,     Cyrillic_hardsign,  Cyrillic_HARDSIGN,  bracketright,   braceright ] };
+
+    key <AC01> { [  a,              A,          a,              A,              Cyrillic_ef,        Cyrillic_EF,        a,              A ] };
+    key <AC02> { [  s,              S,          s,              S,              Cyrillic_yeru,      Cyrillic_YERU,      s,              S ] };
+    key	<AC03> { [  d,              D,          d,              D,              Cyrillic_ve,        Cyrillic_VE,        d,              D ] };
+    key <AC04> { [  f,              F,          f,              F,              Cyrillic_a,         Cyrillic_A,         f,              F ] };
+    key <AC05> { [  g,              G,          g,              G,              Cyrillic_pe,        Cyrillic_PE,        g,              G ] };
+    key <AC06> { [  h,              H,          h,              H,              Cyrillic_er,        Cyrillic_ER,        h,              H ] };
+    key <AC07> { [  j,              J,          j,              J,              Cyrillic_o,         Cyrillic_O,         j,              J ] };
+    key <AC08> { [  k,              K,          k,              K,              Cyrillic_el,        Cyrillic_EL,        k,              K ] };
+    key <AC09> { [  l,              L,          l,              L,              Cyrillic_de,        Cyrillic_DE,        l,              L ] };
+    key <AC10> { [  semicolon,      colon,      semicolon,      U0308,          Cyrillic_zhe,       Cyrillic_ZHE,       semicolon,      U0308 ] };
+    key <AC11> { [  apostrophe,     quotedbl,   U0301,          U030B,          Cyrillic_e,         Cyrillic_E,         U0301,          U030B ] };
+    key <BKSL> { [  backslash,      bar,        backslash,      bar,            slash,              bar,                backslash,      bar ] };
+
+    key <LSGT> { [  less,           greater,    less,           greater,        less,               greater,            less,           greater ] };
+    key <AB01> { [  z,              Z,          z,              Z,              Cyrillic_ya,        Cyrillic_YA,        z,              Z ] };
+    key <AB02> { [  x,              X,          x,              X,              Cyrillic_che,       Cyrillic_CHE,       x,              X ] };
+    key <AB03> { [  c,              C,          U00A9,          C,              Cyrillic_es,        Cyrillic_ES,        U00A9,          C ] };
+    key <AB04> { [  v,              V,          v,              V,              Cyrillic_em,        Cyrillic_EM,        v,              V ] };
+    key <AB05> { [  b,              B,          b,              B,              Cyrillic_i,         Cyrillic_I,         b,              B ] };
+    key <AB06> { [  n,              N,          n,              N,              Cyrillic_te,        Cyrillic_TE,        n,              N ] };
+    key <AB07> { [  m,              M,          m,              M,              Cyrillic_softsign,  Cyrillic_SOFTSIGN,  m,              M ] };
+    key <AB08> { [  comma,          less,       U0327,          U2190,          Cyrillic_be,        Cyrillic_BE,        U0327,          U2190 ] };
+    key <AB09> { [  period,         greater,    U0307,          U2192,          Cyrillic_yu,        Cyrillic_YU,        U0307,          U2192 ] };
+    key <AB10> { [  slash,          question,   U0338,          U00BF,          period,             comma,              U0338,          U00BF ] };
+
+// eng: Maps Right Alt for reaching the third level
+// rus: Составляетъ правую Alt для достиженія третьяго уровня
+// srp: Саставља десни Alt за достизање трећег ступња
+	include "level3(ralt_switch)"
+
+// eng: Maps <CAPS> for reaching the fifth level
+// rus: Составляетъ <CAPS> для достиженія пятаго уровня
+// srp: Саставља <CAPS> за достизање петег ступња
+
+	include "usru(caps_level5_lock)"
+
+// eng: Offers pressing both shift keys for capslock
+// rus: Предоставляетъ нажатие обѣихъ клавишъ Shift для защелкиванія прописности буквъ
+// srp: Ставља на располагање притискивање обију тастера Shift за учвршћивање верзала
+	include "shift(both_shiftlock)"
+
+// eng: Makes <KPDL> return comma instead of dot, as the comma is decimal separator in Cyrillic written languages
+// rus: Дѣлаетъ что <KPDL> отдаетъ запятую вмѣсто точки, такъ какъ запятая десятичный раздѣлитель въ языкахъ пишемыхъ кириллицей
+// srp: Ради да <KPDL> враћа зарез уместо точке, будући да зарез је десетни разделитељ у језицима који се пишу ћирилицом
+	include "kpdl(comma)"
+};
